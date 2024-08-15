@@ -1,0 +1,21 @@
+replicaCount: 1
+argocdAppRevision: argoPluginDidNotSupplyAValueForargocdAppRevision
+
+customerVcToDwn:
+  image:
+    repository: ghcr.io/tbd54566975/customer-vc-to-dwn   
+    tag: main
+    pullPolicy: Always
+
+virtualService:
+  main: vc-to-dwn.tbddev.org
+  gateway: istio-system/primary-gateway
+
+service:
+  type: ClusterIP
+  port: 8080
+
+imagePullPolicy: Always
+
+nameOverride: ""
+fullnameOverride: ""

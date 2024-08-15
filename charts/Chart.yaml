@@ -1,0 +1,7 @@
+# metadata file, but can also pull in dependencies
+apiVersion: v2
+name: customer-vc-to-dwn
+description: A Helm chart for customer-vc-to-dwn
+type: application
+version: 0.0.1
+appVersion: "0.0.1"
