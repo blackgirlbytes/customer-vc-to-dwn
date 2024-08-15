@@ -150,47 +150,49 @@ app.get('/authorize', async (req, res) => {
     console.log('This issuerDidURI requesting authorization', issuerDid);
 
     try {
+        console.log("In the try block")
+        res.json({message: 'You have access. this is fake though'})
         // Has a role record already been sent to issuer?
-        const { records, status: foundStatus } = await web5.dwn.records.query({
-            message: {
-                filter: {
-                    recipient: issuerDid,
-                },
-            },
-        });
+        // const { records, status: foundStatus } = await web5.dwn.records.query({
+        //     message: {
+        //         filter: {
+        //             recipient: issuerDid,
+        //         },
+        //     },
+        // });
 
-        // If role record already has been sent to issuer, then send message to issuer that they already have authorization
-        if (records.length > 0) {
-            return res.json({
-                message: "You already have authorization to store a credential in the Customer's DWN",
-                status: foundStatus.code
-            });
-        }
+        // // If role record already has been sent to issuer, then send message to issuer that they already have authorization
+        // if (records.length > 0) {
+        //     return res.json({
+        //         message: "You already have authorization to store a credential in the Customer's DWN",
+        //         status: foundStatus.code
+        //     });
+        // }
 
-        // If no issuer role records found, create a new role record 
-        const { record, status } = await web5.dwn.records.create({
-            message: {
-                dataFormat: 'text/plain',
-                protocol: vcProtocolDefinition.protocol,
-                protocolPath: 'issuer',
-                schema: vcProtocolDefinition.types.issuer.schema,
-                recipient: issuerDid,
-            },
-        });
+        // // If no issuer role records found, create a new role record 
+        // const { record, status } = await web5.dwn.records.create({
+        //     message: {
+        //         dataFormat: 'text/plain',
+        //         protocol: vcProtocolDefinition.protocol,
+        //         protocolPath: 'issuer',
+        //         schema: vcProtocolDefinition.types.issuer.schema,
+        //         recipient: issuerDid,
+        //     },
+        // });
    
-        const { status: resultsToCustomerStatus } = await record.send(did);
+        // const { status: resultsToCustomerStatus } = await record.send(did);
 
-        console.log({
-            message: `Granted ${issuerDid} authorization to store a credential in the Customer's DWN`,
-            status: status.code,
-            customer: resultsToCustomerStatus,
-        });
+        // console.log({
+        //     message: `Granted ${issuerDid} authorization to store a credential in the Customer's DWN`,
+        //     status: status.code,
+        //     customer: resultsToCustomerStatus,
+        // });
 
-        res.json({
-            message: "You've been granted authorization to store a credential in the Customer's DWN",
-            status: status.code,
-            customer: resultsToCustomerStatus,
-        });
+        // res.json({
+        //     message: "You've been granted authorization to store a credential in the Customer's DWN",
+        //     status: status.code,
+        //     customer: resultsToCustomerStatus,
+        // });
     } catch (error) {
         console.error('Error in authorization:', error);
         res.status(500).json({ error: 'Failed to authorize issuer' });
