@@ -24,7 +24,7 @@ npm install
 ### Running the Server
 Start the server with:
 ```bash
-node server.js
+npm run start
 ```
 The server will run on **http://localhost:5001** .
 
