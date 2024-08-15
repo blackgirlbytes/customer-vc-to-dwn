@@ -38,13 +38,8 @@ const vcProtocolDefinition = {
                 },
                 {
                     role: 'issuer', 
-                    can: ['create']
-                },
-                {
-                    who: 'author',
-                    of: 'credential',
-                    can: ['create','delete', 'update']
-                }, 
+                    can: ['create', 'update']
+                }
             ],
         }
     }
@@ -210,8 +205,10 @@ app.get('/vc-protocol', (req, res) => {
 
 app.get('/', (req, res) => {
     res.status(200).send(`
-        <h1>Welcome to the Web5 API Server</h1>
-        <p>Use the following links to navigate:</p>
+        <h1>Welcome to the Customer's DWN Server</h1>
+        <p>Your goal is to store a Known Customer Credential(KCC) in the Customer's DWN</p>
+        <p>The Customer's DID is: ${did}</p>
+        <p>Use the following links to help you access data:</p>
         <ul>
             <li><a href="/vc-protocol">View the protocol definition</a></li>
             <li><a href="/authorize">Authorize an issuer</a></li>
