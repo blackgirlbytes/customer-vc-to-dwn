@@ -147,7 +147,10 @@ app.get('/authorize', async (req, res) => {
     const { issuerDid } = req.query;
 
     if (!issuerDid) {
-        return res.status(400).json({ error: 'Issuer DID is required as a query parameter' });
+        return res.status(400).json({
+            error: 'issuerDid is required as a query parameter',
+            hint: 'Please make an API call to https://vc-to-dwn.tbddev.org/authorize?issuerDid=${encodeURIComponent(issuerDidUri)}'
+        });
     }
     console.log('This issuerDidURI requesting authorization', issuerDid);
 
@@ -205,6 +208,17 @@ app.get('/vc-protocol', (req, res) => {
     res.send(JSON.stringify(vcProtocolDefinition, null, 2));
 });
 
+app.get('/', (req, res) => {
+    res.status(200).send(`
+        <h1>Welcome to the Web5 API Server</h1>
+        <p>Use the following links to navigate:</p>
+        <ul>
+            <li><a href="/vc-protocol">View the protocol definition</a></li>
+            <li><a href="/authorize">Authorize an issuer</a></li>
+        </ul>
+    `);
+});
+
 
 async function initializeServer() {
     try {
@@ -230,3 +244,5 @@ app.use(express.json());
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
+
+app.set('json spaces', 2)
