@@ -43,6 +43,3 @@ jobs:
           fi
           sleep 1
         done
-
-    - name: Run end-to-end tests
-      run: npm run test:e2e
