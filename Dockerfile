@@ -8,10 +8,10 @@ WORKDIR /customer-vc-to-dwn
 COPY package.json ./
 RUN npm install
 
-COPY tsconfig.json ./
-COPY .
+COPY . .
+
 RUN npm install
 
 EXPOSE 5001
 
-CMD [ "npm", "run", "server" ]
+CMD [ "npm", "run", "start" ]
